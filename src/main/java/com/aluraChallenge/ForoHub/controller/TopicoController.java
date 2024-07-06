@@ -28,6 +28,9 @@ public class TopicoController {
     @Autowired
     List<ValidadorDeTopicos> validadores;
 
+    @Autowired
+    private TopicoService service;
+
     @PostMapping
     @Transactional
     @Operation(summary = "Registra un nuevo topico en la base de datos")
@@ -62,6 +65,17 @@ public class TopicoController {
                 topico.getStatus(),topico.getAutor(),topico.getCurso()
         );
         return ResponseEntity.ok(datosTopico);
+    }
+
+    // PUT por id
+    @PutMapping("/{id}")
+    @Transactional
+    @Operation(summary = "Actualiza los datos de un topico existente")
+    public ResponseEntity actualizarTopico(@PathVariable Long id,
+                                           @RequestBody @Valid DatosRegistroTopico datosRegistroTopico) {
+        DatosActualizarTopico datosActualizarTopico = new DatosActualizarTopico(id,datosRegistroTopico);
+        var response = service.actualizar(datosActualizarTopico);
+        return ResponseEntity.ok(response);
     }
 
 }
