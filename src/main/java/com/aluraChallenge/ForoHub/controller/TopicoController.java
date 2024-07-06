@@ -78,4 +78,14 @@ public class TopicoController {
         return ResponseEntity.ok(response);
     }
 
+    // DELETE LOGICO
+    @DeleteMapping("/{id}")
+    @Transactional
+    @Operation(summary = "Elimina un medico registrado - inactivo")
+    public ResponseEntity eliminarTopico(@PathVariable Long id) {
+        Topico topico = topicoRepository.getReferenceById(id);
+        service.desactivarMedico(topico);
+        return ResponseEntity.noContent().build();
+    }
+
 }

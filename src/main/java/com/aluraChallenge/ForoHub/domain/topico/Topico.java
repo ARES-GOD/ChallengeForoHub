@@ -42,5 +42,9 @@ public class Topico {
             this.mensaje = datosActualizarTopico.datosRegistroTopico().mensaje();
         }
     }
+
+    public void desactivarTopico() {
+        this.status = false;
+    }
 }
 

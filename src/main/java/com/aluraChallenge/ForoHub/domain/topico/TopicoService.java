@@ -31,4 +31,11 @@ public class TopicoService {
         return new DatosRespuestaTopico(topico.getId(),
                 topico.getTitulo(),topico.getMensaje(),topico.getFecha_de_creacion());
     }
+
+    public void desactivarMedico(Topico topico) {
+        if (!topicoRepository.findById(topico.getId()).isPresent()) {
+            throw new ValidacionDeIntegridad("Este id no fue encontrado.");
+        }
+        topico.desactivarTopico();
+    }
 }
