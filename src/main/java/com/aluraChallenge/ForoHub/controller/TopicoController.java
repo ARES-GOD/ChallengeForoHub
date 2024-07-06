@@ -52,4 +52,16 @@ public class TopicoController {
         return ResponseEntity.ok(topicoRepository.findByStatusTrue(paginacion).map(DatosListadoTopicos::new));
     }
 
+    // GET por id
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DatosListadoTopicos> retornaDatosTopico(@PathVariable Long id) {
+        Topico topico = topicoRepository.getReferenceById(id);
+        var datosTopico = new DatosListadoTopicos(
+                topico.getTitulo(),topico.getMensaje(),topico.getFecha_de_creacion(),
+                topico.getStatus(),topico.getAutor(),topico.getCurso()
+        );
+        return ResponseEntity.ok(datosTopico);
+    }
+
 }
